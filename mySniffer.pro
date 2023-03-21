@@ -10,9 +10,11 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    packet_list_model.cpp \
     sniffer.cpp
 
 HEADERS += \
+    packet_list_model.h \
     sniffer.h
 
 FORMS += \
@@ -24,3 +26,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 LIBS += -L/usr/local/lib -lpcap
+#LIBS += -lpcap

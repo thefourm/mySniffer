@@ -4,9 +4,13 @@
 #include <QWidget>
 #include <pcap/pcap.h>
 
+#include "packet_list_model.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sniffer; }
 QT_END_NAMESPACE
+
+const int NIC_NAME_LENGTH = 128;
 
 class Sniffer : public QWidget
 {
@@ -21,10 +25,12 @@ public:
 private slots:
     void on_NIC_box_currentIndexChanged(int index);
 
+
 private:
     Ui::Sniffer *ui;
+    packet_list_model *pkt_list_model;
 
-    pcap_if_t *cur_NIC;
+    char cur_NIC[128];
 
     void FindNIC();
     void TEST_NIC();

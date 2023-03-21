@@ -13,23 +13,13 @@
   <property name="windowTitle">
    <string>Sniffer</string>
   </property>
-  <widget class="QTextBrowser" name="packet_list">
+  <widget class="QTextBrowser" name="current_Nic">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>100</y>
-     <width>701</width>
-     <height>181</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="packet_cntent">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>330</y>
-     <width>701</width>
-     <height>192</height>
+     <x>470</x>
+     <y>20</y>
+     <width>311</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
@@ -38,7 +28,7 @@
     <rect>
      <x>42</x>
      <y>20</y>
-     <width>402</width>
+     <width>423</width>
      <height>29</height>
     </rect>
    </property>
@@ -62,20 +52,30 @@
       <item>
        <widget class="QPushButton" name="start_cap_btn">
         <property name="text">
-         <string>PushButton</string>
+         <string>start_capture</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="end_cap_btn">
         <property name="text">
-         <string>PushButton</string>
+         <string>stop_capture</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QListView" name="packets_list">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>751</width>
+     <height>131</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>
