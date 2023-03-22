@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    packet_list_model.cpp \
+#    packet_list_model.cpp \
+    packet_list_model_v2.cpp \
     sniffer.cpp
 
 HEADERS += \
-    packet_list_model.h \
+#    packet_list_model.h \
+    packet_list_model_v2.h \
     sniffer.h
 
 FORMS += \

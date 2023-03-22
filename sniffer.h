@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <pcap/pcap.h>
 
-#include "packet_list_model.h"
+#include "packet_list_model_v2.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sniffer; }

@@ -1,6 +1,6 @@
 #include "sniffer.h"
 #include "ui_sniffer.h"
-#include "packet_list_model.h"
+#include "packet_list_model_v2.h"
 
 #include <QDebug>
 #include <pcap/pcap.h>
