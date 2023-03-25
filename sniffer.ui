@@ -50,9 +50,9 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="start_cap_btn">
+       <widget class="QPushButton" name="cap_1_pkt_btn">
         <property name="text">
-         <string>start_capture</string>
+         <string>cap_1_pkt</string>
         </property>
        </widget>
       </item>
@@ -75,6 +75,19 @@
      <width>751</width>
      <height>131</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="star_capture_btn">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>60</y>
+     <width>111</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>start_capture</string>
    </property>
   </widget>
  </widget>

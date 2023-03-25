@@ -5,11 +5,13 @@
 
 #include <netinet/if_ether.h>
 
+#include "my_pkt.h"
+#include "my_asyn.h"
+
 
 packet_list_model::packet_list_model(QObject* parent=nullptr)
     :QAbstractListModel(parent)
 {
-
 }
 
 
@@ -26,7 +28,7 @@ QVariant packet_list_model::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if(role == Qt::DisplayRole){
-        u_char tmp_str[2048]={'\0'};
+        u_char tmp_str[65535]={'\0'};
 
         for(int i=0; i<pkt_list[row]->pkthdr.len; i++){
             tmp_str[i] = isprint(((pkt_list[row])->pkt_cnt)[i])?    \
@@ -64,6 +66,26 @@ Qt::ItemFlags packet_list_model::flags(const QModelIndex &index) const
 //    return true;
 //}
 
+
+//
+bool packet_list_model::Remove_pkts(int index, int num){
+    qDebug()<<"here1";
+    if (index<0||num<1||index+num<pkt_list.size()) return false;
+    qDebug()<<"here2";
+
+    beginRemoveRows(QModelIndex(), index, index+num);
+    if(num == pkt_list.size()){
+        pkt_list.clear();
+        pkt_list.squeeze();
+    }
+    else{
+        pkt_list.remove(index, num);
+        pkt_list.squeeze();
+    }
+    endRemoveRows();
+
+    return true;
+}
 
 
 //void get_link_info(pacp_t *handle){
@@ -133,4 +155,16 @@ void packet_list_model::listen_packet(){
 }
 
 
+void packet_list_model::add_one_pkt(My_Pkt pkt)
+{
+    struct My_Pkt *pkt_to_add = new struct My_Pkt(pkt);
+
+    qDebug()<<"list_model:";
+    print_pkt(pkt_to_add);
+
+    int row = rowCount(QModelIndex()) ;
+    beginInsertRows(QModelIndex(), row, row);
+    pkt_list.append(pkt_to_add);
+    endInsertRows();
+}
 

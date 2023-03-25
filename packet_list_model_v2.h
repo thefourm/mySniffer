@@ -5,26 +5,17 @@
 #include <QVector>
 #include <pcap/pcap.h>
 
-struct My_Pkt{
-    u_char* pkt_cnt;
-    struct pcap_pkthdr pkthdr;
+#include "my_pkt.h"
+#include "my_asyn.h"
 
-    My_Pkt(){
-        pkt_cnt=nullptr;
-    };
-    ~My_Pkt(){
-        if(nullptr!=pkt_cnt){
-            delete []pkt_cnt;
-            pkt_cnt=nullptr;
-        }
-    };
-};
 
 class packet_list_model : public QAbstractListModel
 {
     Q_OBJECT
 public:
     char* cur_Nic_name;
+    Producer cap_thread;
+    Consumer add_pkt_thread;
 
     packet_list_model(QObject *parent);
 
@@ -36,8 +27,15 @@ public:
 //    bool insertRows(int row, int count=1, const QModelIndex &parent = QModelIndex());
 //    bool insert_packet(int row, const u_char* packet_content);
 
+    int get_pkt_list_size(){
+        return pkt_list.size();
+    }
+
 public slots:
     void listen_packet();
+    void add_one_pkt(struct My_Pkt pkt);
+
+    bool Remove_pkts(int index, int num);
 
 private:
     // CAUTION: delete when not used.

@@ -11,11 +11,15 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
 #    packet_list_model.cpp \
+    my_asyn.cpp \
+    my_pkt.cpp \
     packet_list_model_v2.cpp \
     sniffer.cpp
 
 HEADERS += \
 #    packet_list_model.h \
+    my_asyn.h \
+    my_pkt.h \
     packet_list_model_v2.h \
     sniffer.h
 
