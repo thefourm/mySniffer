@@ -2,6 +2,8 @@
 #include <pcap/pcap.h>
 
 #include "my_asyn.h"
+#include "pkt_filter.h"
+
 
 namespace MyAsyn{
     QQueue<struct My_Pkt>buffer;
@@ -34,10 +36,11 @@ void Producer::run()
         qDebug()<< QString("Couldn't set handler of device %1 to nonBlock mode: %2\n").arg(cur_Nic_name).arg(errbuf);
         return;
     }
-
+    pcap_set_promisc(handle, miscellanrous);
     pcap_set_immediate_mode(handle, 1);
 
     pcap_activate(handle);
+    my_set_pkt_filter(handle, this->filter_buf);
 
     // pcap_loop will loop forver
     // unless some conditions changed.

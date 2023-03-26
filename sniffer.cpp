@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <pcap/pcap.h>
 
+#include <string>
 
 
 
@@ -22,6 +23,10 @@ Sniffer::Sniffer(QWidget *parent)
     packet_list_model *mymodel = new packet_list_model(this);
     ui->packets_list->setModel(mymodel);
 
+    // set the filter input
+    ui->dst_port_input->setValidator(new QIntValidator(0,65535));
+    ui->src_port_input->setValidator(new QIntValidator(0,65535));
+
     // Register strcut My_Pkt,
     // Otherwise, My_Pkt won't be transmit in signal & plot.
     qRegisterMetaType<My_Pkt>("My_Pkt");
@@ -33,6 +38,46 @@ Sniffer::Sniffer(QWidget *parent)
             mymodel, [=](){
                             mymodel->cur_Nic_name = this->cur_NIC;
                             mymodel->packet_list_model::listen_packet();}
+    );
+
+
+    // connect: filter button.
+    connect(ui->filter_button, &QAbstractButton::clicked, &mymodel->cap_thread,
+            [=](){
+                QString tmp;
+                bool tmp_added = false;
+                if (!ui->dst_ip_input->text().isEmpty()){
+                    tmp += QString("dst net ") + ui->dst_ip_input->text();
+                    tmp_added = true;
+                }
+                if (!ui->src_ip_input->text().isEmpty()){
+                    if(tmp_added)   tmp += QString(" and ");
+                    tmp += QString("src net ") + ui->src_ip_input->text();
+                }
+                if(!ui->dst_port_input->text().isEmpty()){
+                    if(tmp_added)   tmp += QString(" and ");
+                    tmp += QString("dst port ") + ui->dst_port_input->text();
+                }
+                if(!ui->src_port_input->text().isEmpty()){
+                    if(tmp_added)   tmp += QString(" and ");
+                    tmp += QString("src port ") + ui->src_port_input->text();
+                }
+
+                mymodel->cap_thread.miscellanrous = ui->miscellaneous_checkBox->isChecked()? 1 : 0;
+
+                if ( !tmp.isEmpty() ){
+                    qDebug()<< "the filter input is:\n" << tmp << '\n';
+
+//                  mymodel->cap_thread.filter_buf = tmp.toStdU32String().c_str();
+                    memset(mymodel->cap_thread.filter_buf, '\0', sizeof(mymodel->cap_thread.filter_buf));
+                    strcpy(mymodel->cap_thread.filter_buf,
+                           tmp.toStdString().c_str()
+                           );
+                    qDebug() << mymodel->cap_thread.filter_buf;
+                    qDebug();
+
+                }
+            }
     );
 
 

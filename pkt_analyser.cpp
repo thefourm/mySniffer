@@ -39,6 +39,11 @@ QString get_pkt_profile(const My_Pkt *pkt){
 
     pkt_ptr += ETHER_HDR_LEN;
 
+    if (my_etherhdr.ether_type == ETHERTYPE_ARP){
+        pkt_profile += QString("prtl: ARP");
+        return pkt_profile;
+    };
+
     struct ip my_iphdr;
     memcpy(&my_iphdr,pkt_ptr,sizeof(iphdr));
     pkt_profile += QString("dst ip: ") + QString(inet_ntoa(my_iphdr.ip_dst)) + QString(" ");

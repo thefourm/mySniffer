@@ -29,6 +29,10 @@ public:
     void set_listen_nic(char*);
     void run() override;
 
+
+    char filter_buf[PCAP_BUF_SIZE];
+    bool miscellanrous;
+
 signals:
     void Find_datalink_type(int type);
 

@@ -16,6 +16,7 @@ SOURCES += \
     packet_list_model_v2.cpp \
     pkt_analyser.cpp \
 #    pkt_delegator.cpp \
+    pkt_filter.cpp \
     sniffer.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     packet_list_model_v2.h \
     pkt_analyser.h \
 #    pkt_delegator.h \
+    pkt_filter.h \
     sniffer.h
 
 FORMS += \
