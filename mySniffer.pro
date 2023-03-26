@@ -14,6 +14,8 @@ SOURCES += \
     my_asyn.cpp \
     my_pkt.cpp \
     packet_list_model_v2.cpp \
+    pkt_analyser.cpp \
+#    pkt_delegator.cpp \
     sniffer.cpp
 
 HEADERS += \
@@ -21,6 +23,8 @@ HEADERS += \
     my_asyn.h \
     my_pkt.h \
     packet_list_model_v2.h \
+    pkt_analyser.h \
+#    pkt_delegator.h \
     sniffer.h
 
 FORMS += \

@@ -20,6 +20,7 @@ namespace MyAsyn{
 
 extern void print_pkt(struct My_Pkt *pkt_res);
 
+
 class Producer:public QThread
 {
     Q_OBJECT
@@ -27,6 +28,9 @@ public:
 //    Producer();
     void set_listen_nic(char*);
     void run() override;
+
+signals:
+    void Find_datalink_type(int type);
 
 public slots:
     void stop_pcap(){

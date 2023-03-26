@@ -3,10 +3,10 @@
 #include <QDebug>
 #include <pcap/pcap.h>
 
-#include <netinet/if_ether.h>
 
 #include "my_pkt.h"
 #include "my_asyn.h"
+#include "pkt_analyser.h"
 
 
 packet_list_model::packet_list_model(QObject* parent=nullptr)
@@ -28,17 +28,17 @@ QVariant packet_list_model::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if(role == Qt::DisplayRole){
-        u_char tmp_str[65535]={'\0'};
+//        u_char tmp_str[65535]={'\0'};
 
-        for(int i=0; i<pkt_list[row]->pkthdr.len; i++){
-            tmp_str[i] = isprint(((pkt_list[row])->pkt_cnt)[i])?    \
-                            ((pkt_list[row])->pkt_cnt)[i]:          \
-                            '.';
-        }
+//        for(int i=0; i<pkt_list[row]->pkthdr.len; i++){
+//            tmp_str[i] = isprint(((pkt_list[row])->pkt_cnt)[i])?    \
+//                            ((pkt_list[row])->pkt_cnt)[i]:          \
+//                            '.';
+//        }
 
-//        QString tmp_qstr = QString(tmp_str);
-//        return tmp_qstr;
-        return QString((char*)tmp_str);
+//        return QString((char*)tmp_str);
+        return get_pkt_profile(pkt_list[row]);
+
     }
 
     else
@@ -139,6 +139,11 @@ struct My_Pkt* capture_one_packet(char* cur_Nic_name, char* filter)
     pcap_close(handle);
 
     return pkt_res;
+}
+
+
+void packet_list_model::set_datalink_type(int type){
+    this->datalink_type = type;
 }
 
 

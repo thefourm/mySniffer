@@ -31,15 +31,18 @@ public:
         return pkt_list.size();
     }
 
+
 public slots:
     void listen_packet();
-    void add_one_pkt(struct My_Pkt pkt);
 
+    void set_datalink_type(int type);
+    void add_one_pkt(struct My_Pkt pkt);
     bool Remove_pkts(int index, int num);
 
 private:
     // CAUTION: delete when not used.
     QVector<const My_Pkt*> pkt_list;
+    int datalink_type;
 
 };
 

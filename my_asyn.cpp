@@ -27,6 +27,9 @@ void Producer::run()
         return;
     }
 
+    int datalink_type = pcap_datalink(handle);
+
+
     if(0 != pcap_setnonblock(handle, 1, errbuf) ){
         qDebug()<< QString("Couldn't set handler of device %1 to nonBlock mode: %2\n").arg(cur_Nic_name).arg(errbuf);
         return;

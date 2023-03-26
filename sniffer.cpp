@@ -74,6 +74,10 @@ Sniffer::Sniffer(QWidget *parent)
         }
     );
 
+    connect(&(mymodel->cap_thread),&Producer::Find_datalink_type,\
+            mymodel, &packet_list_model::set_datalink_type,\
+            Qt::BlockingQueuedConnection);
+
     connect(&(mymodel->add_pkt_thread), &Consumer::Get_one_pkt, \
             mymodel, &packet_list_model::add_one_pkt
     );
